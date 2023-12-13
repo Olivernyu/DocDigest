@@ -1,9 +1,10 @@
-from mypackage import main
+from fastapi.testclient import TestClient
+from app.main import app
+
+client = TestClient(app)
 
 
-def test_hello_world():
-    assert main.hello_world() == "Hello, World!"
-
-
-def test_math():
-    assert 2 + 2 == 4
+def test_main():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Welcome to DocDigest API!"}
