@@ -48,6 +48,10 @@ Follow these steps to set up and run the template:
     ruff check .
     ```
 
+## Running Locally
+1. Make sure all the dependencies are installed
+2. Run `uvicorn app.main:app --reload` from project root level
+
 ## Features
 
 - **Python Version**: 3.11+
