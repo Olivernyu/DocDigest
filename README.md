@@ -1,10 +1,8 @@
-# Python Technology Template
-
-A robust starting point for Python projects, offering an integrated development environment with a complete toolchain.
+# DocDigest
 
 ## Getting Started
 
-Follow these steps to set up and run the template:
+Follow these steps to set up and run the tool:
 
 1. **Set up a virtual environment**:
     - On macOS and Linux:
@@ -50,7 +48,10 @@ Follow these steps to set up and run the template:
 
 ## Running Locally
 1. Make sure all the dependencies are installed
-2. Run `uvicorn app.main:app --reload` from project root level
+2. **Run the command below from project root level**:
+    ```bash
+    uvicorn app.main:app --reload
+    ```
 
 ## Features
 
