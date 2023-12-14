@@ -3,10 +3,11 @@ from ..shared_resources import page_data_store
 
 router = APIRouter()
 
+
 @router.get("/{page_id}")
 async def summarize_page(page_id: str):
     """
-    Current implemention is intended solely to test the shared_resources set up. 
+    Current implemention is intended solely to test the shared_resources set up.
     It does not implement the summarize endpoint.
     """
     page_data = page_data_store.get(page_id)

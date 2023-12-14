@@ -1,6 +1,5 @@
 from fastapi.testclient import TestClient
 from app.main import app
-from app.shared_resources import page_data_store  
 
 client = TestClient(app)
 
