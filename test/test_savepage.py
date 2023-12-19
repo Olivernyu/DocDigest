@@ -18,4 +18,4 @@ def test_save_page():
 
     assert response.json()["id"] in page_data_store
     assert "text" in page_data_store[response.json()["id"]]
-    assert "html_content" in page_data_store[response.json()["id"]]
+    assert "text_from_html" in page_data_store[response.json()["id"]]

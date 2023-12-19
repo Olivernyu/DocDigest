@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from bs4 import BeautifulSoup
 from ..shared_resources import page_data_store
 from uuid import uuid4
 import requests
@@ -34,9 +35,11 @@ async def save_page(page_data: PageData):
     text = page_data.text
     url = page_data.url
     html_content = fetch_html(url)
+    soup = BeautifulSoup(html_content, "html.parser")
+    text_from_html = soup.get_text(separator=" ", strip=True)
     try:
         unique_id = str(uuid4())
-        page_data_store[unique_id] = {"text": text, "html_content": html_content}
+        page_data_store[unique_id] = {"text": text, "text_from_html": text_from_html}
         return {"message": "Page saved successfully!", "id": unique_id}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

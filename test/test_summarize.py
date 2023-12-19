@@ -12,5 +12,5 @@ def test_summarize():
     summary_response = client.get(f"/summarize/{response.json()['id']}")
 
     assert summary_response.status_code == 200
-    assert "text" in summary_response.json()["summary"]
-    assert "html_content" in summary_response.json()["summary"]
+    assert "summary" in summary_response.json()
+    assert isinstance(summary_response.json()["summary"], str)
