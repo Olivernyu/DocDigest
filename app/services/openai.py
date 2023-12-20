@@ -3,10 +3,12 @@
 from openai import OpenAI
 import os
 
+
 class OpenAIService:
     """
     A Singleton class for OpenAI services. Instance is only initialized on first use.
     """
+
     _instance = None
 
     def __new__(cls):

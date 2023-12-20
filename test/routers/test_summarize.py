@@ -2,7 +2,6 @@ from fastapi.testclient import TestClient
 from app.main import app
 from unittest.mock import patch, MagicMock
 
-from app.services.openai import OpenAIService
 
 client = TestClient(app)
 
@@ -15,7 +14,7 @@ def test_summarize_page():
     page_id = response.json()["id"]
     mock_summary = "This is a mock summary."
 
-    with patch('app.services.openai.OpenAIService.__new__') as mock_new:
+    with patch("app.services.openai.OpenAIService.__new__") as mock_new:
         # Prevent creating actual instance and reading API Key
         # Create a mock instance with a mocked summarize_text method
         mock_instance = MagicMock()

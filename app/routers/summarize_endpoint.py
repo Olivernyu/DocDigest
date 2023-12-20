@@ -7,11 +7,11 @@ from ..shared_resources import page_data_store
 
 router = APIRouter()
 
+
 @router.get("/{page_id}")
 async def summarize_page(
-        page_id: str,
-        ai_provider: str = Query(
-            "openai", description="AI provider for summarization")
+    page_id: str,
+    ai_provider: str = Query("openai", description="AI provider for summarization"),
 ):
     """
     Summarize the page by providing the page_id and an optional AI provider
@@ -27,7 +27,6 @@ async def summarize_page(
         openai_service = OpenAIService()
         summary = openai_service.summarize_text(text_from_html)
     else:
-        raise HTTPException(
-            status_code=400, detail="Unsupported AI provider")
+        raise HTTPException(status_code=400, detail="Unsupported AI provider")
 
     return {"summary": summary}

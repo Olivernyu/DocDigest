@@ -3,10 +3,12 @@
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import os
 
+
 class AnthropicService:
     """
     A Singleton class for Anthropic services. Instance is only initialized on first use.
     """
+
     _instance = None
 
     def __new__(cls):
@@ -25,7 +27,9 @@ class AnthropicService:
             response = self.client.completions.create(
                 model=model,
                 max_tokens_to_sample=300,
-                prompt=f"{HUMAN_PROMPT} Summarize the following text: \n\n {text} {AI_PROMPT}",
+                prompt=f"{HUMAN_PROMPT} \
+                    Summarize the following text: \n\n {text} \
+                    {AI_PROMPT}",
             )
             return response.completion
         except Exception as e:
