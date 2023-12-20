@@ -1,5 +1,5 @@
 from unittest.mock import patch, MagicMock
-from app.services import OpenAIService
+from app.services.openai import OpenAIService
 
 
 def test_summarize_text():

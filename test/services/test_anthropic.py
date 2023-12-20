@@ -1,5 +1,5 @@
 from unittest.mock import patch, MagicMock
-from app.services import AnthropicService
+from app.services.anthropic import AnthropicService
 
 
 def test_summarize_text():

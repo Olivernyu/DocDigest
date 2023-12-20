@@ -1,7 +1,7 @@
 # summarize.py
 
 from fastapi import APIRouter, HTTPException, Query
-from app.services import OpenAIService
+from app.services.openai import OpenAIService
 
 from ..shared_resources import page_data_store
 
