@@ -1,22 +1,37 @@
 from fastapi import APIRouter, HTTPException
-from transformers import pipeline
+from openai import OpenAI
+
+# import os
+
 from ..shared_resources import page_data_store
 
 router = APIRouter()
-
-summarizer = pipeline("summarization")
+# api_key = os.getenv("OPENAI_API_KEY")
+api_key = "Sample api key"
+client = OpenAI(api_key=api_key)
 
 
 def summarize_text(text):
-    summary = summarizer(text, max_length=500, min_length=30, do_sample=False)
-    return summary[0]["summary_text"]
+    try:
+        response = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": "Summarize the following text: \n\n" + text,
+                }
+            ],
+            model="gpt-3.5-turbo",
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        print(f"Error during summarization: {e}")
+        raise
 
 
 @router.get("/{page_id}")
 async def summarize_page(page_id: str):
     """
-    Current implemention is intended solely to test the shared_resources set up.
-    It does not implement the summarize endpoint.
+    Summarize the page by providing the page_id
     """
     try:
         page_data = page_data_store.get(page_id)
