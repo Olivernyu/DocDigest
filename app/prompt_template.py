@@ -22,6 +22,19 @@ HIGHLIGHTED HTML:
 
 
 def apply_prompt_template(prompt_type: str, text_from_html: str) -> str:
+    """
+    Apply a prompt template based on the given prompt type.
+
+    Args:
+        prompt_type (str): The type of prompt template to apply.
+        text_from_html (str): The text extracted from HTML.
+
+    Returns:
+        str: The formatted prompt template.
+
+    Raises:
+        Exception: If the prompt type is not found.
+    """
     if prompt_type == "summarizer":
         return summarizer_prompt.format(text=text_from_html)
     elif prompt_type == "highlighter":
