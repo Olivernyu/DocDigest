@@ -2,7 +2,6 @@ from fastapi import APIRouter, HTTPException, Query
 from typing import List
 import openai
 from app.services.openai import OpenAIService
-from app.models.document import Document  # Assuming you have a Document model
 from ..shared_resources import document_data_store
 from numpy import dot
 from numpy.linalg import norm
@@ -10,7 +9,11 @@ from numpy.linalg import norm
 _THRESHOLD = 0.80
 router = APIRouter()
 
-@router.get("/search")
+# class DocumentData(BaseModel):
+#     text: str
+#     url: str
+
+@router.post("/search")
 async def semantic_search(
     query: str,
     ai_provider: str = Query("openai", description="AI provider for semantic search"),
