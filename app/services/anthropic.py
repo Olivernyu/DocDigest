@@ -36,7 +36,7 @@ class AnthropicService:
             print(f"Error during summarization: {e}")
             raise
 
-    def semantic_search(self, text, model="claude-2.1"):
+    def find_similar_pages(self, text, model="claude-2.1"):
         try:
             response = self.client.completions.create(
                 model=model,
