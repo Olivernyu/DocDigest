@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Query
 from app.services.openai import OpenAIService
-from ..shared_resources import document_data_store
 from numpy import dot
 from numpy.linalg import norm
+from ..shared_resources import page_data_store
 
 router = APIRouter()
 _THRESHOLD = 0.80
@@ -24,7 +24,7 @@ async def semantic_search(
     - List[Document]: A list of documents that are semantically similar to the query.
     """
     if ai_provider == "openai":
-        similar_docs = embed_then_compute(query, document_data_store)
+        similar_docs = embed_then_compute(query, page_data_store)
     else:
         raise HTTPException(status_code=400, detail="Unsupported AI provider")
     return similar_docs
