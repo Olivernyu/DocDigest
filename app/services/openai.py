@@ -37,21 +37,3 @@ class OpenAIService:
         except Exception as e:
             print(f"Error during summarization: {e}")
             raise
-
-    def semantic_search(self, text, model="gpt-3.5-turbo"):
-        try:
-            response = self.client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "user",
-                        "content": "semantically search the following text with the \
-                        query: \n\n"
-                        + text,
-                    }
-                ],
-                model=model,
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            print(f"Error during search: {e}")
-            raise

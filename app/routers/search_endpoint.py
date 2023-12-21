@@ -53,7 +53,7 @@ def embed_then_compute(query, page_data_store):
 
     # Find semantically similar documents in the store
     similar_pages = []
-    for doc in page_data_store:
+    for _, doc in page_data_store.items():  # Use .items() to get both key and value
         page_embeddings = encode(doc["text"])
         similarity = _compute_similarity(query_embedding, page_embeddings)
         if similarity > _THRESHOLD:

@@ -1,28 +1,32 @@
-# from fastapi.testclient import TestClient
-# from app.main import app
-# from unittest.mock import patch, MagicMock
+from fastapi.testclient import TestClient
+from app.main import app
+from unittest.mock import patch
 
-# client = TestClient(app)
+client = TestClient(app)
 
-# def test_semantic_search():
-#     # Example data
-#     test_data = {"text": "Sample page data", "url": "https://engineering.nyu.edu/"}
 
-#     response = client.post("/savepage", json=test_data)
-#     page_id = response.json()["id"]
-#     mock_summary = "This is a mock summary."
+def test_semantic_search():
+    # Example data
+    query_param = "Sample query"
 
-#     with patch("app.services.openai.OpenAIService.__new__") as mock_new:
-#         # Prevent creating actual instance and reading API Key
-#         # Create a mock instance with a mocked summarize_text method
-#         mock_instance = MagicMock()
-#         mock_instance.summarize_text.return_value = mock_summary
-#         mock_new.return_value = mock_instance
+    # Mock embeddings for the query and documents
+    mock_query_embedding = [1, 0, 0]  # Example embedding
+    mock_doc_embedding = [0.8, 0.2, 0]  # Another example embedding
 
-#         response = client.get(f"/summarize/{page_id}")
+    with patch("app.routers.search_endpoint.encode") as mock_encode:
+        # Setting up the side effect for the mocked encode function
+        mock_encode.side_effect = [
+            mock_query_embedding,
+            mock_doc_embedding,
+            mock_doc_embedding,
+        ]
 
-#         # Asserts
-#         mock_new.assert_called_once()
-#         mock_instance.summarize_text.assert_called_once()
-#         assert response.status_code == 200
-#         assert response.json() == {"summary": mock_summary}
+        # Making a POST request to the semantic search endpoint
+        response = client.post(f"/semantic_search?query={query_param}")
+
+        # Asserts
+        if response.status_code == 422:
+            print(response.json())
+
+        # Asserts
+        assert response.status_code == 200
