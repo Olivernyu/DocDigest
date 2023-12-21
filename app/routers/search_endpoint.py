@@ -27,12 +27,13 @@ async def semantic_search(
         openai_service = OpenAIService()
         similar_docs = openai_service.semantic_search(query, document_data_store)
 
-        print('hi')
+        print("hi")
     else:
         raise HTTPException(status_code=400, detail="Unsupported AI provider")
-    print('yo')
+    print("yo")
     print(similar_docs)
     return similar_docs
+
 
 def encode(text):
     """
@@ -45,8 +46,11 @@ def encode(text):
     - list: The embedding vector for the text.
     """
     openaiservice = OpenAIService()
-    response = openaiservice.Embedding.create(input=text, engine="text-similarity-babbage-001")
-    return response['data'][0]['embedding']
+    response = openaiservice.Embedding.create(
+        input=text, engine="text-similarity-babbage-001"
+    )
+    return response["data"][0]["embedding"]
+
 
 def semantic_search(query, document_store):
     # Convert query to an embedding
@@ -55,7 +59,7 @@ def semantic_search(query, document_store):
     # Find semantically similar documents in the store
     similar_docs = []
     for doc in document_store:
-        doc_embedding = encode(doc['text'])
+        doc_embedding = encode(doc["text"])
         similarity = _compute_similarity(query_embedding, doc_embedding)
         if similarity > _THRESHOLD:
             similar_docs.append(doc)

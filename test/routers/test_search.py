@@ -4,6 +4,7 @@ from unittest.mock import patch, MagicMock
 
 client = TestClient(app)
 
+
 def test_semantic_search():
     # Example data
     test_query = "Sample search query"
@@ -16,9 +17,9 @@ def test_semantic_search():
     mock_search_response = test_documents
     # TODO
     # with patch("app.services.openai.OpenAIService.semantic_search", return_value=mock_search_response) as mock_search:
-        # response = client.post("/search", json={"query": test_query})
+    # response = client.post("/search", json={"query": test_query})
 
-        # Asserts
-        # mock_search.assert_called_once()
-        # assert response.status_code == 200
-        # assert response.json() == mock_search_response
+    # Asserts
+    # mock_search.assert_called_once()
+    # assert response.status_code == 200
+    # assert response.json() == mock_search_response
