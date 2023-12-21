@@ -1,19 +1,14 @@
 from fastapi import APIRouter, HTTPException, Query
-from typing import List
-import openai
 from app.services.openai import OpenAIService
 from ..shared_resources import document_data_store
 from numpy import dot
 from numpy.linalg import norm
 
-_THRESHOLD = 0.80
 router = APIRouter()
+_THRESHOLD = 0.80
 
-# class DocumentData(BaseModel):
-#     text: str
-#     url: str
 
-@router.post("/search")
+@router.post("/search/{query}")
 async def semantic_search(
     query: str,
     ai_provider: str = Query("openai", description="AI provider for semantic search"),
@@ -31,12 +26,15 @@ async def semantic_search(
     if ai_provider == "openai":
         openai_service = OpenAIService()
         similar_docs = openai_service.semantic_search(query, document_data_store)
+
+        print('hi')
     else:
         raise HTTPException(status_code=400, detail="Unsupported AI provider")
-
+    print('yo')
+    print(similar_docs)
     return similar_docs
 
-def encode(self, text):
+def encode(text):
     """
     Generate an embedding for the given text using OpenAI's API.
 
@@ -46,7 +44,8 @@ def encode(self, text):
     Returns:
     - list: The embedding vector for the text.
     """
-    response = openai.Embedding.create(input=text, engine="text-similarity-babbage-001")
+    openaiservice = OpenAIService()
+    response = openaiservice.Embedding.create(input=text, engine="text-similarity-babbage-001")
     return response['data'][0]['embedding']
 
 def semantic_search(query, document_store):

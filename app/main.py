@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from .routers.save_endpoint import router as save_page_router
-from .routers.search_endpoint import semantic_search as search_router
+from .routers.search_endpoint import router as search_router
 from .routers.summarize_endpoint import router as summarize_router
 
 app = FastAPI()
