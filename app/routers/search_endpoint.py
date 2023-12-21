@@ -24,10 +24,10 @@ async def semantic_search(
     - List[Document]: A list of documents that are semantically similar to the query.
     """
     if ai_provider == "openai":
-        similar_docs = embed_then_compute(query, page_data_store)
+        similar_pages = embed_then_compute(query, page_data_store)
     else:
         raise HTTPException(status_code=400, detail="Unsupported AI provider")
-    return similar_docs
+    return similar_pages
 
 
 def encode(text):
@@ -47,19 +47,19 @@ def encode(text):
     return response["data"][0]["embedding"]
 
 
-def embed_then_compute(query, document_store):
+def embed_then_compute(query, page_data_store):
     # Convert query to an embedding
     query_embedding = encode(query)
 
     # Find semantically similar documents in the store
-    similar_docs = []
-    for doc in document_store:
-        doc_embedding = encode(doc["text"])
-        similarity = _compute_similarity(query_embedding, doc_embedding)
+    similar_pages = []
+    for doc in page_data_store:
+        page_embeddings = encode(doc["text"])
+        similarity = _compute_similarity(query_embedding, page_embeddings)
         if similarity > _THRESHOLD:
-            similar_docs.append(doc)
+            similar_pages.append(doc)
 
-    return similar_docs
+    return similar_pages
 
 
 def _compute_similarity(emb1, emb2):
