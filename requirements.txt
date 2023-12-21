@@ -1,5 +1,4 @@
 annotated-types==0.6.0
-numpy
 anthropic==0.8.0
 anyio==3.7.1
 attrs==23.1.0
