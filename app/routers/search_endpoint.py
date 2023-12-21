@@ -8,7 +8,7 @@ router = APIRouter()
 _THRESHOLD = 0.80
 
 
-@router.post("/search/{query}")
+@router.post("/")
 async def semantic_search(
     query: str,
     ai_provider: str = Query("openai", description="AI provider for semantic search"),
@@ -24,14 +24,9 @@ async def semantic_search(
     - List[Document]: A list of documents that are semantically similar to the query.
     """
     if ai_provider == "openai":
-        openai_service = OpenAIService()
-        similar_docs = openai_service.semantic_search(query, document_data_store)
-
-        print("hi")
+        similar_docs = embed_then_compute(query, document_data_store)
     else:
         raise HTTPException(status_code=400, detail="Unsupported AI provider")
-    print("yo")
-    print(similar_docs)
     return similar_docs
 
 
@@ -52,7 +47,7 @@ def encode(text):
     return response["data"][0]["embedding"]
 
 
-def semantic_search(query, document_store):
+def embed_then_compute(query, document_store):
     # Convert query to an embedding
     query_embedding = encode(query)
 

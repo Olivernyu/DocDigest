@@ -35,3 +35,17 @@ class AnthropicService:
         except Exception as e:
             print(f"Error during summarization: {e}")
             raise
+
+    def semantic_search(self, text, model="claude-2.1"):
+        try:
+            response = self.client.completions.create(
+                model=model,
+                max_tokens_to_sample=300,
+                prompt=f"{HUMAN_PROMPT} \
+                    Search through the text with the query: \n\n {text} \
+                    {AI_PROMPT}",
+            )
+            return response.completion
+        except Exception as e:
+            print(f"Error during semantic search: {e}")
+            raise
