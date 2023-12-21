@@ -9,7 +9,7 @@ _THRESHOLD = 0.80
 
 
 @router.post("/")
-async def semantic_search(
+async def find_similar_pages(
     query: str,
     ai_provider: str = Query("openai", description="AI provider for semantic search"),
 ):
