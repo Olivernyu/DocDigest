@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from .routers.save_endpoint import router as save_page_router
+from .routers.similarity_endpoint import router as search_router
 from .routers.summarize_endpoint import router as summarize_router
 from .routers.highlight_endpoint import router as highlight_router
 
 app = FastAPI()
 
 app.include_router(save_page_router, prefix="/savepage", tags=["savepage"])
-
+app.include_router(search_router, prefix="/find_similar_pages")
 app.include_router(summarize_router, prefix="/summarize")
 app.include_router(highlight_router, prefix="/highlight")
 
